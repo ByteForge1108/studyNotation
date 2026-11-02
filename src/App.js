@@ -6,6 +6,8 @@ import Login from "./pages/Login.js";
 import Signup from "./pages/Signup.js";
 import Dashboard from "./pages/Dashboard.js";
 import { useState } from "react";
+import PrivateRoute from "./Components/PrivateRoute.jsx";
+
 
 
 function App() {
@@ -13,14 +15,18 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <div>
+    <div className="w-screen h-screen flex flex-col bg-richblack-900">
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
 
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn} />}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/dashboard" element={
+          <PrivateRoute isLoggedIn={isLoggedIn}>
+            <Dashboard/>
+          </PrivateRoute>
+        }/>
       </Routes>
 
     </div>
